@@ -1,5 +1,5 @@
 /*  JavaScript: getDefaultCustomizationSpec action
-    Consults a vRO configuration ("CustomizationSpecs") to suggest a default/preferred customization spec based on OS family type and whether the machine will be domain-joined.
+    Consults a vRO configuration ("CustomizationSpecs") to suggest a default/preferred spec based on OS family and domain join status.
     Inputs: imageName (string), adObject (boolean)
 */
 if (!(imageName == "" || imageName == null)) {
