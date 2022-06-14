@@ -28,8 +28,8 @@ if (!(zoneName == "" || zoneName == null)) {
                     System.debug(JSON.stringify(networkProps));
                     var networkTag = null;
                     for each (tag in networkProps.tags) {
-                        if (tag.key === "network") {
-                            networkTag = "network:" + tag.value;
+                        if (tag.key === "net") {
+                            networkTag = "net:" + tag.value;
                         }
                         if (networkTag != null) { break; };
                     }
