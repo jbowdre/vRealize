@@ -16,4 +16,5 @@ request.setHeader("Content-Type", "application/json");
 var response = request.execute();
 var token = JSON.parse(response.contentAsString).cspAuthToken;
 System.debug("Created vRA API session: " + token);
+
 return token;
