@@ -9,4 +9,5 @@ for each (configElement in Server.getConfigurationElementCategoryWithPath(path).
     if (configElement.name.indexOf(configurationName) === 0) { break; };
 }
 var attribValue = configElement.getAttributeWithKey(variableName).value;
+
 return attribValue;
