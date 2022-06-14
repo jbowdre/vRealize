@@ -1,5 +1,4 @@
-/*  
-JavaScript: getConfigValue action
+/*  JavaScript: getConfigValue action
     Retrieves the configuration element attribute value for a given key.
     Inputs: path (string), configurationName (string), variableName (string)
     Return type: string
