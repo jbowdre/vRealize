@@ -8,7 +8,7 @@ if (conflict) {
   System.debug("Existing conflict found, skipping AD check...");
 } else {
   var computer = ActiveDirectory.getComputerAD(candidateVmName, adHost);
-  System.log("Searched AD for: " + candidateVmName);
+  System.debug("Searched AD for: " + candidateVmName);
   if (computer) {
       conflict = true;
       errMsg = "Conflicting AD object found!"
