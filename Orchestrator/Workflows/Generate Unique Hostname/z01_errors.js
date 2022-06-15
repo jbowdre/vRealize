@@ -4,4 +4,3 @@
     Outputs: none
 */
 System.error("FATAL ERROR!");
-System.error(errMsg);
