@@ -22,5 +22,5 @@ Ensures a unique, sequentially-numbered hostname by checking for naming conflict
 | `digitCount` | number | `2` | determines how many digits get appended to `nameBase` |
 | `errMsg` | string | | thrown when errors are encountered |
 |`hostnameSequence` | number | `0` | starts the sequence at 0, tracks as it changes |
-| `vcSdkConnection` | VC:SdkConnection | | host used by the vCenter plugin (set based on `vmName` input) |
+| `vcSdkConnection` | VC:SdkConnection | | host used by the vCenter plugin (set based on `vCenterName` input) |
 | `vms` | Array/VC:VirtualMachine | | holds VM objects to check for conflicts |
