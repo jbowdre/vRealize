@@ -9,6 +9,7 @@ var vm = VcPlugin.getAllVirtualMachines(null, vmName)[0];
 var originalState = vm.state;
 if (originalState === "poweredOn") {
     System.log("VM is running running. Stopping VM...")
+    // Create sleep() function
     function sleep(milliseconds) {
       var timeStart = new Date().getTime();
       while (true) {
