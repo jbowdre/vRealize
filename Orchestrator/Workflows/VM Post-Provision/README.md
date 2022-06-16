@@ -12,4 +12,4 @@ Performs post-deploy tasks like adding notes to the VM object and creating stati
 | Name | Type | Value | Description |
 |:--- |:--- |:--- |:--- |
 | `vm` | VC:VirtualMachine| | virtual machine object |
-| `dnsHost` | CompositeType(sshHost:string,sshUser:string,sshPass:SecureString,dnsServers:Array/string,supportedDomains:Array/string):dnsConfig | `Endpoints: dnsHost` | object which stores endpoint and credential details for DNS operations |
+| `dnsHost` | CompositeType(sshHost:string, sshUser:string, sshPass:SecureString, dnsServers:Array/string, supportedDomains:Array/string):dnsConfig | `Endpoints: dnsHost` | object which stores endpoint and credential details for DNS operations |
