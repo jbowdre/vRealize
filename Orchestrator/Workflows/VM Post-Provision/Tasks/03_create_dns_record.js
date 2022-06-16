@@ -1,6 +1,6 @@
 /*  JavaScript: create dns record
     Optionally creates a static record in Microsoft DNS by way of an SSH bastion host.
-    Inputs: inputProperties (Properties), dnsHost (CompositeType(sshHost:string,sshUser:string,sshPass:SecureString,dnsServers:Array/string,supportedDomains:Array/string):dnsConfig)
+    Inputs: inputProperties (Properties), dnsHost (CompositeType(sshHost:string,sshUser:string,sshPass:SecureString,dnsServers:Array/string,supportedDomains:Array/string):dnsHost)
     Outputs: none
 */
 var staticDns = inputProperties.customProperties.staticDns;
