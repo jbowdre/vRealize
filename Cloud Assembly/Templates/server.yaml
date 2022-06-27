@@ -1,0 +1,44 @@
+formatVersion: 1
+inputs:
+  compute:
+    type: object
+    $ref: /ref/property-groups/compute
+  naming:
+    type: object
+    $ref: /ref/property-groups/naming
+  tracking:
+    type: object
+    $ref: /ref/property-groups/tracking
+resources:
+  vCompute:
+    type: Cloud.vSphere.Machine
+    properties:
+      image: ${input.compute.image}
+      flavor: ${input.compute.flavor}
+      customizationSpec: ${input.compute.customSpec}
+      nameBase: ${to_upper(input.compute.site + '-' + input.naming.env + input.naming.function + '-' + input.naming.app)}
+      digits: ${input.naming.digits}
+      folderName: ${input.compute.site + "-" + input.naming.function}
+      networks:
+        - network: ${resource.vNetwork.id}
+          assignment: static
+      storage:
+        bootDiskCapacityInGB: ${input.compute.diskSize}
+      domain: ${propgroup.constants.domain}
+      staticDns: ${input.compute.staticDns}
+      adObject: ${input.compute.adObject}
+      ignoreActiveDirectory: ${!input.compute.adObject}
+      activeDirectory:
+        relativeDN: ${'OU=Servers,OU=Computers,OU=' + to_upper(input.compute.site) + ',OU=LAB'}
+      adminsList: ${input.compute.adminUsers}
+      ticket: ${input.tracking.ticket}
+      poc: ${input.tracking.pocName + " (" + input.tracking.pocEmail + ")"}
+      description: ${input.tracking.vmDescription}
+      vCenterUser: ${propgroup.constants.vCenterUser}
+      templateUser: ${propgroup.constants.templateUser}
+  vNetwork:
+    type: Cloud.vSphere.Network
+    properties:
+      networkType: existing
+      constraints:
+        - tag: ${input.compute.network}
