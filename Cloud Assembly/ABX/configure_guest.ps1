@@ -21,7 +21,7 @@
         customProperties.vCenterUser            # user for connecting to vCenter [lab\vra]
         customProperties.vCenter                # vCenter instance to connect to [vcsa.lab.bowdre.net]
         customProperties.domain                 # long-form domain name [lab.bowdre.net]
-        customProperties.adminsList             # list of domain users/groups to be added as local admins [john, lab\vra, vRA-Admins]
+        customProperties.adminsList             # array of domain users/groups to be added as local admins [john, lab\vra, vRA-Admins]
         customProperties.adObject               # boolean to determine if the system will be joined to AD (true) or not (false)
         customProperties.templateUser           # object containing usernames corresponding to the template passwords
 #>
@@ -75,7 +75,7 @@ function handler($context, $inputs) {
     if ($osType.Equals("windowsGuest")) {
         # Initialize Windows variables
         $domainLong = $inputs.customProperties.domain
-        $adminsList = $inputs.customProperties.adminsList
+        $adminsList = $inputs.customProperties.adminsList | ConvertFrom-Json
         $adObject = $inputs.customProperties.adObject
         $templateUser = $adObject.Equals("true") ? $templateUsers.winDomain : $templateUsers.winWorkgroup
         $templatePassword = $adObject.Equals("true") ? $context.getSecret($inputs."templatePassWinDomain") : $context.getSecret($inputs."templatePassWinWorkgroup")
@@ -83,15 +83,13 @@ function handler($context, $inputs) {
         # Add domain accounts to local administrators group
         if ($adminsList.Length -gt 0 -And $adObject.Equals("true")) {
             # Standardize users entered without domain as DOMAIN\username
-            if ($adminsList.Length -gt 0) {
-                $domainShort = $domainLong.split('.')[0]
-                $adminsArray = @(($adminsList -Split ',').Trim())
-                For ($i=0; $i -lt $adminsArray.Length; $i++) {
-                    If ($adminsArray[$i] -notmatch "$domainShort.*\\" -And $adminsArray[$i] -notmatch "@$domainShort") {
-                        $adminsArray[$i] = $domainShort + "\" + $adminsArray[$i]
-                    }
-            }
-            $admins = '"{0}"' -f ($adminsArray -join '","')
+            $domainShort = $domainLong.split('.')[0]
+            # $adminsArray = @(($adminsList -Split ',').Trim())
+            For ($i=0; $i -lt $adminsList.Length; $i++) {
+                If ($adminsList[$i] -notmatch "$domainShort.*\\" -And $adminsList[$i] -notmatch "@$domainShort") {
+                    $adminsList[$i] = $domainShort + "\" + $adminsList[$i]
+                }
+            $admins = '"{0}"' -f ($adminsList -join '","')
             Write-Host "Administrators: $admins"
             }
             $adminScript = "Add-LocalGroupMember -Group Administrators -Member $admins"
