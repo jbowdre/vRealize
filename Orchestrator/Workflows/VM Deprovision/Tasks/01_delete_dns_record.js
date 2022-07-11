@@ -6,12 +6,12 @@
 var hostname = inputProperties.resourceNames[0];
 var dnsDomain = inputProperties.customProperties.domain;
 var deleted = false;
-if (dnsHost_supportedDomains.indexOf(dnsDomain) >= 0) {
+if (dnsHost.supportedDomains.indexOf(dnsDomain) >= 0) {
     System.log("Attempting to remove DNS record for " + hostname + "...");
-    var sshSession = new SSHSession(dnsHost_sshHost, dnsHost_sshUser);
-    System.debug("Connecting to " + dnsHost_sshHost + "...");
-    sshSession.connectWithPassword(dnsHost_sshPass);
-    for each (var dnsServer in dnsHost_dnsServers) {
+    var sshSession = new SSHSession(dnsHost.sshHost, dnsHost.sshUser);
+    System.debug("Connecting to " + dnsHost.sshHost + "...");
+    sshSession.connectWithPassword(dnsHost.sshPass);
+    for each (var dnsServer in dnsHost.dnsServers) {
         if (deleted == false) {
             System.debug("Using DNS Server " + dnsServer + "...");
             var sshCommand = 'Remove-DnsServerResourceRecord -ComputerName ' + dnsServer + ' -Name ' + hostname + ' -ZoneName ' + dnsDomain + ' -RRType A -Force';
