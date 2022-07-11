@@ -9,7 +9,7 @@ var dnsDomain = inputProperties.customProperties.domain;
 var ipAddress = inputProperties.addresses[0];
 var created = false;
 if (staticDns == "true" && dnsHost.supportedDomains.indexOf(dnsDomain) >= 0) {
-    System.log("Attempting to create DNS record for " + hostname + "." + ipAddress + "...");
+    System.log("Attempting to create DNS record for " + hostname + " @ " + ipAddress + "...");
     var sshSession = new SSHSession(dnsHost.sshHost, dnsHost.sshUser);
     System.debug("Connecting to " + dnsHost.sshHost + "...");
     sshSession.connectWithPassword(dnsHost.sshPass);
